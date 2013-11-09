@@ -6,7 +6,14 @@ div.restroType
 	border: 1px solid black;
 	float: left;
 }
+#main
+{
+	color:white;
+	background-image: url("../images/hotel1.jpg");
+	background-position:center;
+	
 
+}
 #categoryDiv
 {
 	height: 150px;
