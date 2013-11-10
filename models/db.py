@@ -85,6 +85,10 @@ db.define_table('Review',
           Field('time_of_post', 'datetime', requires=IS_NOT_EMPTY()),
           Field('description', requires=IS_NOT_EMPTY()))
 
+db.define_table('Advertisement',
+          Field('hotel_id', 'reference Hotel_Info', requires=IS_NOT_EMPTY()),
+          Field('clicks','integer'),
+          Field('banner','upload'))
 
 '''db.define_table('User_Info',
           Field('user_id', 'reference auth_user'),
