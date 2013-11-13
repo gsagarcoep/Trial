@@ -167,6 +167,9 @@ def incrClicks():
     hotelId = request.args[0]
     
     # db query to increment click of this hotel id
-    
+    query = db.Advertisement.hotel_id == hotelId
+    clicksRow= db(query).select(db.Advertisement.clicks)[0]
+    nclicks= int(clicksRow.clicks) + 1
+    db(db.Advertisement.hotel_id==hotelId).update(clicks=nclicks)
     # redirect to original page
     redirect(URL('details', args=[request.args[0]]))
