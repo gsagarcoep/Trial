@@ -1,31 +1,128 @@
 {{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
 {{extend 'layout.html'}}
 
-<div id="hotelInfo">
-	<span id="hotelName">Name : <a href='#'>{{=details.name}}</a></span></br>
-	<p>Address : {{=details.address}}</p></br>
-	<p>Open for : {{=details.hours}}</p></br>
-	<p>Cost per two : {{=details.costPerTwo}}</p></br>
-	<p><a href='#ReviewsBlock'>{{=details.no_of_reviewes}} reviews</a></p></br>
-	<p>Overall Rating : {{=details.overall_rating}}</p></br>
-	<p>Name : details.name</p></br>
-	<p>Name : details.name</p></br>
+<!-- Hotel information-->
+<div class="clear"></div>
+<div class="grid_8 pos-relative column alpha">
+	<div class="search-name">
+		<h3 class="top-res-box-name ln24 left"><a href={{=URL('details', args=[details.id])}}>{{=details.name}}</a></h3></br>
+		<div class="clear"></div>
+		<div class="ln24" style="line-height: 26px;">
+			<span class="search-result-address">{{=details.address}}</span>
+		</div>
+		<div class="res-snippet-small-cuisine" style="color: #4d4d4d;" title="European, North Indian, Mediterranean">European, North Indian, Mediterranean
+		</div>
+		<div class="ln24">
+			<span class="upc grey-text sml">Cost for 2:</span> {{=details.costPerTwo}}&nbsp;/&nbsp;
+			<span class="ln24"><span class="grey-text">Hours: </span>Timings : {{=details.hours}}</span>
+			<p><a href='#'></a></p></br>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="grid_4 column omega ta-right">
+	 <div class="search-result-stars ln24 clearfix">
+	 	<div class="right">
+            <div class="rating-rank left">
+            	<div data-res-id="90744" class="rating-for-90744 rating-div left res-snippet-small-rating level-7">
+                                {{=details.overall_rating}}
+                            </div>
+            </div>
+        </div>
+	 </div>
+	 <div class="clear"></div>
+	 <div class="right search-details-reviews" style="">
+        <a href="#ReviewsBlock" class="search-result-reviews right" title="User reviews for Exotica">{{=details.no_of_reviewes}} reviews</a>
+        <span data-icon="r" class="right search-result-review-icon"></span>
+    </br>
+    <a href={{=URL('sendMail')}}>Send via email</a>
+    </br>
+    {{if auth.has_membership('moderator'):}}
+        <a href={{=URL('addHotelPhoto', args=[details.id])}}>Add a photo</a>
+        </br>
+        <a href={{=URL('addHotelMenu', args=[details.id])}}>Add a menu card</a>
+    {{pass}}
+     </div>
+     <div class="clear"></div>
 </div>
 </br>
 
-<p id="ReviewsBlock" style="font-weight:bold">Reviews</p>
+<!-- Reviews -->
+
+<div class="clear"></div>
+
+<span id="ReviewsBlock" style="font-weight:bold">Reviews</span> &nbsp;&nbsp;&nbsp;&nbsp;<span><a href="#photos">Photos</a></span>&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="#menuCard">Menu card</a></span>
+</br>
 <a href="#writeReview">Write a review</a>
+<br/>
+<br/>
 {{for review in reviews:}}
-<div>
-	<p><a href={{=URL('userDetails', args=[review.auth_user.id])}}><b><i>{{=review.auth_user.first_name}} {{=review.auth_user.last_name}}</i></b></a></p></br>
-	<img class="profilePic" src={{=URL('download',args=review.auth_user.photo)}}></img>
-	<p>Rating : {{=review.Review.rating}}</p></br>
-	<p>When : {{=review.Review.time_of_post}}</p></br>
-	<p>Description : {{=review.Review.description}}</p></br>
-	</br>
-</div>
+<div class="clear"></div>
+        <div class="grid_5 column alpha">
+            <div class="user-snippet">
+            	<div class="left profilePic">
+                	<img src={{=URL('download',args=review.auth_user.photo)}} />
+            	</div>
+    			<div class="user-snippet-details left">
+        			<div class="user-snippet-name"><a href={{=URL('userDetails', args=[review.auth_user.id])}}><b>{{=review.auth_user.first_name}} {{=review.auth_user.last_name}}</b></a>
+        			</div>
+    			</div>
+			</div>
+        </div>
+        <div class="res-review-top-right">
+            <div class="res-review-top-right-rating">
+                                                <div class="left" style="background: none repeat scroll 0% 0% rgb(237, 237, 237);">
+                    <div class="right" itemprop="rating"><div class="small-rating level-7">{{=review.Review.rating}}</div></div>
+                    <div class="left" style="padding-right:20px;">
+                        <div style="color: rgb(157, 157, 157); letter-spacing:-0.5px;padding-left: 10px; line-height:12px;font-size: 10px; padding-top: 6px; text-transform: uppercase;">Rated as</div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="res-review-top-right-text">
+                                <a href="http://www.zomato.com/review/bbqMk" class="res-review-date">
+                    <time itemprop="dtreviewed" datetime="2013-05-19 11:21:29">{{=review.Review.time_of_post}}</time>
+                </a>
+                <br/>
+                {{if auth.has_membership('moderator'):}}
+				<a href={{=URL('deleteReview', args=[review.Review.hotel_id, review.Review.id])}}>Delete</a>
+				<br/>
+				<a href={{=URL('editReview', args=[review.Review.hotel_id, review.Review.id])}}>Edit</a>
+				</br>
+				{{pass}}
+		                                                                </div>
+                    </div>
+    </div>
+    <div data-review-id="201219" class="res-review-body clearfix" style="">
+        <div class="reviewDescription">
+            <p itemprop="description">{{=review.Review.description}}</p>
+        </div>
+    </div>
+    <div class="clear"></div>
 {{pass}}
 
-<p id="writeReview">Write a review</p>
-{{=addReviewForm}}
+<div class="clear"></div>
 
+<div id="writeReviewBlock">
+<p id="writeReview"><b>Write a review</b></p>
+{{=addReviewForm}}
+</div>
+
+<div id="photos">
+    <p><b>Photos</b></p>
+    {{for image in images:}}
+        <div class="imageDiv"><img class="hotelImage" src={{=URL('download', args=image.photo)}}></img></div>
+    {{pass}}
+</div>
+
+</br>
+
+<div id="menuCard" class="clear">
+    <p><b>Menu card</b></p>
+    {{for menu in menus:}}
+        <div class="menuDiv"><img class="menuImage" src={{=URL('download', args=menu.menu)}}></img></div>
+    {{pass}}
+</div>
+<div class="clear"></div>
+<p><b><a href="#ReviewsBlock">Reviews</a></b></p>

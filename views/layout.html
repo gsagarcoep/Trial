@@ -69,7 +69,7 @@
 <body>
   <!-- Navbar ================================================== -->
   <div class="navbar navbar-inverse">
-    <!--<div class="flash">{{=response.flash or ''}}</div>-->
+    <div class="flash">{{=response.flash or ''}}</div>
     <div class="navbar-inner">
       <div class="container">
         {{is_mobile=request.user_agent().is_mobile}}
@@ -85,8 +85,7 @@
           {{if response.menu:}}
           {{=MENU(response.menu, _class='mobile-menu nav' if is_mobile else 'nav',mobile=is_mobile,li_class='dropdown',ul_class='dropdown-menu')}}
           {{pass}}
-          {{menu2 = [(T('City'), False, URL('default', 'index'), [(T('Hyderabad'), False, URL('default', 'index')),(T('Pune'), False, URL('default', 'index'))])]}}
-          {{=MENU(menu2, _class='mobile-menu nav' if is_mobile else 'nav',mobile=is_mobile,li_class='dropdown',ul_class='dropdown-menu')}}
+
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -99,7 +98,6 @@
         <div class="span12">
             <div class="page-header">
                 <h1>
-                    {{=response.title}}
                     <small>{{=response.subtitle or ''}}</small>
                 </h1>
             </div>
@@ -107,7 +105,7 @@
 	{{pass}}
     </header>
 
-    <section id="main" class="main row">
+    <section  class="main row">
         {{if left_sidebar_enabled:}}
         <div class="span3 left-sidebar">
             {{block left_sidebar}}
@@ -126,11 +124,10 @@
         {{block right_sidebar}}
         
         {{session.lastUrl=request.url}}
-        
         <div class="span3">
-		<div id="ad1">
-        	<p><a href={{=URL('incrClicks', args=[session.hotelIds[0]])}} ><img src={{=URL('download', args=session.hotelPhotos[0].banner)}}></img></a></p><br/>    
-            	</div>
+    <div id="ad1">
+          <p><a href={{=URL('incrClicks', args=[session.hotelIds[0]])}} ><img src={{=URL('download', args=session.hotelPhotos[0].banner)}}></img></a></p><br/>    
+              </div>
             <div id="ad2">
               <p><a href={{=URL('incrClicks', args=[session.hotelIds[1]])}} ><img src={{=URL('download', args=session.hotelPhotos[1].banner)}}></img></a></p><br/>
             </div>

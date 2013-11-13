@@ -70,20 +70,30 @@ use_janrain(auth, filename='private/janrain.key')
 
 db.define_table('Hotel_Info',
           Field('name', requires = IS_NOT_EMPTY()),
-          Field('address'),
-          Field('city'),
-          Field('costPerTwo', 'decimal(10,2)'),
+          Field('address', requires = IS_NOT_EMPTY()),
+          Field('city', requires = IS_NOT_EMPTY()),
+          Field('costPerTwo', 'decimal(10,2)', requires = IS_NOT_EMPTY()),
           Field('hours'),
-          Field('overall_rating', 'decimal(2,1)'),
+          Field('overall_rating', 'float', requires = IS_NOT_EMPTY()),
           Field('no_of_reviewes', 'integer'))
 
 
 db.define_table('Review',
           Field('user_id', 'reference auth_user', requires=IS_NOT_EMPTY()),
           Field('hotel_id', 'reference Hotel_Info', requires=IS_NOT_EMPTY()),
-          Field('rating', 'decimal(2,1)', requires=IS_NOT_EMPTY()),
+          Field('rating', requires=IS_IN_SET([1,2,3,4,5])),
           Field('time_of_post', 'datetime', requires=IS_NOT_EMPTY()),
-          Field('description', requires=IS_NOT_EMPTY()))
+          Field('description', 'text', requires=IS_NOT_EMPTY()))
+
+
+db.define_table('Hotel_Photos',
+          Field('hotel_id', 'integer', requires=IS_NOT_EMPTY()),
+          Field('photo', 'upload', requires=IS_NOT_EMPTY()))
+
+db.define_table('Hotel_MenuCard',
+          Field('hotel_id', 'integer', requires=IS_NOT_EMPTY()),
+          Field('menu', 'upload', requires=IS_NOT_EMPTY()))
+
 
 db.define_table('Advertisement',
           Field('hotel_id', 'reference Hotel_Info', requires=IS_NOT_EMPTY()),
@@ -94,6 +104,12 @@ db.define_table('Advertisement',
           Field('user_id', 'reference auth_user'),
           Field('no_of_reviews', 'integer'))
 '''
+
+from gluon.tools import Mail
+mail = Mail()
+mail.settings.server = 'smtp.gmail.com:587'
+mail.settings.sender = 'swap.andro24@gmail.com'
+mail.settings.login = 'swap.andro24:srpatil123'
 
 #########################################################################
 ## Define your tables below (or better in another model file) for example
