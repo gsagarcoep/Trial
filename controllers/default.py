@@ -19,9 +19,24 @@ def index():
     return auth.wiki()
     """
     
+    session.hotelPhotos = []
+    session.hotelIds = []
     query = db.Advertisement.hotel_id == 1
-    session.hotelPhoto = db(query).select(db.Advertisement.banner)[0]
+    session.hotelPhotos.append(db(query).select(db.Advertisement.banner)[0])
+    session.hotelIds.append(1)
 
+    query = db.Advertisement.hotel_id == 2
+    session.hotelPhotos.append(db(query).select(db.Advertisement.banner)[0])
+    session.hotelIds.append(2)
+    
+    query = db.Advertisement.hotel_id == 3
+    session.hotelPhotos.append(db(query).select(db.Advertisement.banner)[0])
+    session.hotelIds.append(3)
+    
+    query = db.Advertisement.hotel_id == 4
+    session.hotelPhotos.append(db(query).select(db.Advertisement.banner)[0])
+    session.hotelIds.append(4)
+    
     
     response.flash = T("Welcome CafeHunt!")
     form=FORM(INPUT(_name='keyword', requiures=IS_NOT_EMPTY(), _placeholder='Please enter hotel name'), INPUT(_type='submit', _value='Search'))
@@ -41,7 +56,7 @@ def index():
         response.flash = 'please fill the form'
     
 
-    return dict(message=T('Welcome to CafeHunt!!'), form=form, photoFromC=session.hotelPhoto)
+    return dict(message=T('Welcome to CafeHunt!!'), form=form, photoFromC=session.hotelPhotos)
 
 
 def user():
@@ -147,3 +162,11 @@ def userDetails():
     userInfo = db(query).select(db.auth_user.id, db.auth_user.first_name, db.auth_user.last_name, db.auth_user.photo)
 
     return dict(userReviews=userReviews, id=userInfo[0].id, fname=userInfo[0].first_name, lname=userInfo[0].last_name, photo=userInfo[0].photo)
+    
+def incrClicks():
+    hotelId = request.args[0]
+    
+    # db query to increment click of this hotel id
+    
+    # redirect to original page
+    redirect(URL('details', args=[request.args[0]]))

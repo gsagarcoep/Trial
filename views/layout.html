@@ -124,18 +124,21 @@
         </div>
 
         {{block right_sidebar}}
+        
+        {{session.lastUrl=request.url}}
+        
         <div class="span3">
 		<div id="ad1">
-        	<p><img src={{=URL('download', args=session.hotelPhoto['banner'])}}></img></p><br/>    
+        	<p><a href={{=URL('incrClicks', args=[session.hotelIds[0]])}} ><img src={{=URL('download', args=session.hotelPhotos[0].banner)}}></img></a></p><br/>    
             	</div>
             <div id="ad2">
-                <p>This isdiv2</p><br/>
+              <p><a href={{=URL('incrClicks', args=[session.hotelIds[1]])}} ><img src={{=URL('download', args=session.hotelPhotos[1].banner)}}></img></a></p><br/>
             </div>
             <div id="ad3">
-                <p>THis is div3</p><br/>
+              <p><a href={{=URL('incrClicks', args=[session.hotelIds[2]])}} ><img src={{=URL('download', args=session.hotelPhotos[2].banner)}}></img></a></p><br/>
             </div>
             <div id="ad4">
-                <p>this is div4</p>
+               <p><a href={{=URL('incrClicks', args=[session.hotelIds[3]])}} ><img src={{=URL('download', args=session.hotelPhotos[3].banner)}}></img></a></p><br/>
             </div>
             
         </div>

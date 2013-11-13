@@ -111,9 +111,11 @@ img.profilePic
   width: 228px;
 }
 #ad1,#ad2,#ad3,#ad4{
-    width: 100px;
+    	width: 100px;
 	height: 100px;
 	background-color: grey;
 	border: 1px solid black;
+	clear:left;
 	float: left;
 }
+
