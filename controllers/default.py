@@ -18,19 +18,30 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
+    
+    query = db.Advertisement.hotel_id == 1
+    session.hotelPhoto = db(query).select(db.Advertisement.banner)[0]
+
+    
     response.flash = T("Welcome CafeHunt!")
     form=FORM(INPUT(_name='keyword', requiures=IS_NOT_EMPTY(), _placeholder='Please enter hotel name'), INPUT(_type='submit', _value='Search'))
     #if form.process().accepted:
     #    if form.accepts(request,session):
     #       redirect(URL('search', args=[form.vars.keyword]))
     ##    redirect(URL('search'))
-
+	
     if form.accepts(request,session):
-        redirect(URL('search', args=[form.vars.keyword]))
-
+           response.flash = 'form accepted' 
+           redirect(URL('search', args=[form.vars.keyword]))
+	
+    elif form.errors:
+    	redirect(URL('search', args=[form.vars.keyword]))
+        response.flash = 'form has errors'
+    else:
+        response.flash = 'please fill the form'
     
 
-    return dict(message=T('Welcome to CafeHunt!!'), form=form)
+    return dict(message=T('Welcome to CafeHunt!!'), form=form, photoFromC=session.hotelPhoto)
 
 
 def user():

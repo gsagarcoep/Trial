@@ -110,4 +110,10 @@ img.profilePic
 .grid_4 {
   width: 228px;
 }
-
+#ad1,#ad2,#ad3,#ad4{
+    width: 100px;
+	height: 100px;
+	background-color: grey;
+	border: 1px solid black;
+	float: left;
+}

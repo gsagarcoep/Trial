@@ -123,13 +123,23 @@
             {{end}}
         </div>
 
-        {{if right_sidebar_enabled:}}
+        {{block right_sidebar}}
         <div class="span3">
-            {{block right_sidebar}}
-            <h3>This is it  Sidebar</h3>
-            <p></p>
-            {{end}}
+		<div id="ad1">
+        	<p><img src={{=URL('download', args=session.hotelPhoto['banner'])}}></img></p><br/>    
+            	</div>
+            <div id="ad2">
+                <p>This isdiv2</p><br/>
+            </div>
+            <div id="ad3">
+                <p>THis is div3</p><br/>
+            </div>
+            <div id="ad4">
+                <p>this is div4</p>
+            </div>
+            
         </div>
+        {{end}}
         {{pass}}
     </section><!--/main-->
 
