@@ -277,7 +277,7 @@ div.menuImage
 }
 
 #ad1,#ad2,#ad3,#ad4{
-    	width: 100px;
+    	width: 200px;
 	height: 100px;
 	background-color: grey;
 	border: 1px solid black;
@@ -294,7 +294,6 @@ div.layoutIncludeBlock
 {
   width: 70%;
   height: 480px;
-  /*margin: auto;*/
   margin-right: 0;
   padding-right: 0;
 }

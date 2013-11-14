@@ -8,7 +8,7 @@
 ## - download is for downloading files uploaded in the db (does streaming)
 ## - call exposes all registered services (none by default)
 #########################################################################
-
+import random
 
 def index():
     """
@@ -18,26 +18,35 @@ def index():
     if you need a simple wiki simply replace the two lines below with:
     return auth.wiki()
     """
+
+    response.title = 'Welcome to CafeHunt!'
     
     session.hotelPhotos = []
     session.hotelIds = []
-    query = db.Advertisement.hotel_id == 1
+    
+    row = db(db.Advertisement.hotel_id!=None).select()
+    hotelId=random.randint(1,len(row))
+    
+    query = db.Advertisement.hotel_id == random.randint(1,len(row))
     session.hotelPhotos.append(db(query).select(db.Advertisement.banner)[0])
-    session.hotelIds.append(1)
+    session.hotelIds.append(hotelId)
 
     response.flash=''
 
-    query = db.Advertisement.hotel_id == 2
+    hotelId=random.randint(1,len(row))
+    query = db.Advertisement.hotel_id == hotelId
     session.hotelPhotos.append(db(query).select(db.Advertisement.banner)[0])
-    session.hotelIds.append(2)
+    session.hotelIds.append(hotelId)
     
-    query = db.Advertisement.hotel_id == 3
+    hotelId=random.randint(1,len(row))
+    query = db.Advertisement.hotel_id == hotelId
     session.hotelPhotos.append(db(query).select(db.Advertisement.banner)[0])
-    session.hotelIds.append(3)
+    session.hotelIds.append(hotelId)
     
-    query = db.Advertisement.hotel_id == 4
+    hotelId=random.randint(1,len(row))
+    query = db.Advertisement.hotel_id == hotelId
     session.hotelPhotos.append(db(query).select(db.Advertisement.banner)[0])
-    session.hotelIds.append(4)
+    session.hotelIds.append(hotelId)
     
 
     response.flash = T("Welcome CafeHunt!")
@@ -425,3 +434,4 @@ def incrClicks():
     db(db.Advertisement.hotel_id==hotelId).update(clicks=nclicks)
     # redirect to original page
     redirect(URL('details', args=[request.args[0]]))
+    
