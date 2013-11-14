@@ -6,16 +6,18 @@ div.restroType
 	border: 1px solid black;
 	float: left;
 }
-#main
+#indexMain
 {
 	color:white;
 	background-image: url("../images/IndexBackgroundImage.jpg");
 
 	background-position:center;
 
-  width: 70%;
-  height: 70%;
-	
+  width: 100%;
+  height: 100%;
+
+  padding-left: 30px;
+  padding-top: 15%;
 
 }
 #categoryDiv
@@ -47,6 +49,7 @@ img.profilePic
 {
 	width:50px;
 	height:50px;
+  margin: 0;
 }
 
 /*  Zomato */
@@ -126,8 +129,14 @@ img.profilePic
 
 .user-snippet
 {
-    width:50px;
-    height:50px;
+
+    margin: 0;
+    float: left;
+}
+
+.userImageDiv
+{
+  float: left;
 }
 
 .user-snippet-details {
@@ -138,6 +147,7 @@ img.profilePic
 
 .user-snippet-name {
   line-height: 16px;
+  margin-left: 60px;
 }
 
 .user-snippet-name a {
@@ -259,6 +269,12 @@ div.menuImage
   width: 200px;
   height: 200px;  
 }
+#adRight{
+	position:absolute;
+	top:30%;
+	right:10%;
+
+}
 
 #ad1,#ad2,#ad3,#ad4{
     	width: 100px;
@@ -267,4 +283,23 @@ div.menuImage
 	border: 1px solid black;
 	clear:left;
 	float: left;
+}
+
+div.container
+{
+  height: 100%;
+}
+
+div.layoutIncludeBlock
+{
+  width: 70%;
+  height: 480px;
+  /*margin: auto;*/
+  margin-right: 0;
+  padding-right: 0;
+}
+
+.span9
+{
+  height: 480px;
 }
