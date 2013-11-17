@@ -25,28 +25,63 @@ def index():
     session.hotelIds = []
     
     row = db(db.Advertisement.hotel_id!=None).select()
-    hotelId=random.randint(1,len(row))
-    
-    query = db.Advertisement.hotel_id == random.randint(1,len(row))
+    numOfAds=len(row)
+    adId=[]
+        
+    while len(adId) < 4 and len(adId)<numOfAds:
+	j=0
+	flag=False
+	 
+	num=random.randint(1,numOfAds)
+	query = db.Advertisement.id == num
+	
+	while not query:
+		num=random.randint(1,numOfAds)
+		query = db.Advertisement.id == num
+			     
+	while j < len(adId):
+		flag=False
+			
+		if len(adId) == j:
+			break;
+			
+		if num==adId[j]:
+			j=0
+			
+			num=random.randint(1,numOfAds)
+			query = db.Advertisement.id == num
+	
+			while not query:
+				num=random.randint(1,numOfAds)
+				query = db.Advertisement.id == num
+					
+			flag=True
+		else:
+				
+			j=j+1
+	
+	if flag==False:
+			adId.append(num)
+     
+    print adId
+        
+    query = db.Advertisement.id == adId[0]
     session.hotelPhotos.append(db(query).select(db.Advertisement.banner)[0])
-    session.hotelIds.append(hotelId)
+    session.hotelIds.append(adId[0])
 
     response.flash=''
 
-    hotelId=random.randint(1,len(row))
-    query = db.Advertisement.hotel_id == hotelId
+    query = db.Advertisement.id == adId[1]
     session.hotelPhotos.append(db(query).select(db.Advertisement.banner)[0])
-    session.hotelIds.append(hotelId)
+    session.hotelIds.append(adId[1])
     
-    hotelId=random.randint(1,len(row))
-    query = db.Advertisement.hotel_id == hotelId
+    query = db.Advertisement.id == adId[2]
     session.hotelPhotos.append(db(query).select(db.Advertisement.banner)[0])
-    session.hotelIds.append(hotelId)
+    session.hotelIds.append(adId[2])
     
-    hotelId=random.randint(1,len(row))
-    query = db.Advertisement.hotel_id == hotelId
+    query = db.Advertisement.id == adId[3]
     session.hotelPhotos.append(db(query).select(db.Advertisement.banner)[0])
-    session.hotelIds.append(hotelId)
+    session.hotelIds.append(adId[3])
     
 
     response.flash = T("Welcome CafeHunt!")
@@ -434,4 +469,3 @@ def incrClicks():
     db(db.Advertisement.hotel_id==hotelId).update(clicks=nclicks)
     # redirect to original page
     redirect(URL('details', args=[request.args[0]]))
-    
