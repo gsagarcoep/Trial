@@ -63,7 +63,7 @@ def index():
 	if flag==False:
 			adId.append(num)
      
-    print adId
+   
         
     query = db.Advertisement.id == adId[0]
     session.hotelPhotos.append(db(query).select(db.Advertisement.banner)[0])
